@@ -16,6 +16,7 @@
 #include <QApplication>
 
 #include "ConfigPage.h"
+#include "TournamentPage.h"
 #include "Styles.h"
 
 namespace ChessEngineArena {
@@ -26,11 +27,17 @@ namespace ChessEngineArena {
 
         this->stackedWidget = new QStackedWidget(this);
 
-        auto *homePage = new HomePage(this);
-        auto *configPage = new ConfigPage(this);
+        std::function<void(Page)> switchPage = [this](int index) {
+            stackedWidget->setCurrentIndex(index);
+        };
+
+        auto* homePage = new HomePage(switchPage, this);
+        auto* configPage = new ConfigPage(switchPage, this);
+        auto* tournamentPage = new TournamentPage(switchPage, this);
         
         stackedWidget->addWidget(homePage);
         stackedWidget->addWidget(configPage);
+        stackedWidget->addWidget(tournamentPage);
 
         setCentralWidget(stackedWidget);
 
@@ -59,7 +66,7 @@ namespace ChessEngineArena {
         });
     }
 
-    HomePage::HomePage(QWidget* parent = nullptr) : QWidget(parent) {
+    HomePage::HomePage(std::function<void(Page)> switchPage, QWidget* parent) : QWidget(parent) {
         auto *layout = new QVBoxLayout(this);
 
         QLabel* title = new QLabel("Chess Engine Arena");
@@ -71,8 +78,8 @@ namespace ChessEngineArena {
         layout->addWidget(startBtn);
 
         // Connect button signal to slot (lambda)
-        connect(startBtn, &QPushButton::clicked, this, [startBtn]() {
-            qDebug("Button clicked!");
+        connect(startBtn, &QPushButton::clicked, this, [switchPage]() {
+            switchPage(CONFIG);
         });
     }   
 }

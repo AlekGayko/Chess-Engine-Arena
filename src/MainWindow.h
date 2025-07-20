@@ -6,6 +6,10 @@
 #include <QStackedWidget>
 #include <QWidget>
 
+#include <functional>
+
+#include "Types.h"
+
 namespace ChessEngineArena {
 
     class MainWindow : public QMainWindow {
@@ -14,25 +18,14 @@ namespace ChessEngineArena {
         explicit MainWindow(QWidget* parent = nullptr);
         ~MainWindow() = default;
     private:
-        enum Page {
-            HOME,
-            CONFIG
-        };
         QStackedWidget* stackedWidget;
     };
 
     class HomePage : public QWidget {
         Q_OBJECT
     public:
-        explicit HomePage(QWidget* parent = nullptr);
+        explicit HomePage(std::function<void(Page)> switchPage, QWidget* parent = nullptr);
         ~HomePage() = default;
-    };
-
-    class Menu : public QMenuBar {
-        Q_OBJECT
-    public:
-        explicit Menu(QWidget* parent = nullptr);
-        ~Menu() = default;
     };
 
 }
