@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>assets/pawn.png</file>
+    </qresource>
+</RCC>
