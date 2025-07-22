@@ -3,13 +3,25 @@
 
 namespace ChessEngineArena {
 
+    enum Color : int {
+        BLACK,
+        WHITE,
+        COLOR_NB
+    };
+
     enum Page : int {
         HOME,
         CONFIG,
         TOURNAMENT
     };
 
-    constexpr int DEFAULT_TOURNAMENT_SIZE = 10;
+    enum GameResult : int {
+        BLACK_WIN,
+        WHITE_WIN,
+        DRAW
+    };
+
+    constexpr int DEFAULT_TOURNAMENT_SIZE = 1;
     constexpr int MIN_TOURNAMENT_SIZE = 1;
     constexpr int MAX_TOURNAMENT_SIZE = 1000;
 
